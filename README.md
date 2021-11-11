@@ -1,11 +1,3 @@
-<br/>
-<p align="center">
-<a href="https://chain.link" target="_blank">
-<img src="https://raw.githubusercontent.com/smartcontractkit/chainlink-hardhat-box/master/box-img-lg.png" width="225" alt="Chainlink Hardhat logo">
-</a>
-</p>
-<br/>
-
 # Chainlink Hardhat Box
  Implementation of Chainlink VRF using the [Hardhat](https://hardhat.org/) development environment:
  - [Chainlink VRF](https://docs.chain.link/docs/chainlink-vrf)
