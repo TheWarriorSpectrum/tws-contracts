@@ -1,3 +1,11 @@
+<br/>
+<p align="center">
+<a href="https://warriorspectrum.nft" target="_blank">
+<img src="https://github.com/TheWarriorSpectrum/tws-contracts/blob/ddee69ef9298551bb2b20b7cdfecc4593d7b1121/Logo.jpeg" width="225" alt="The Warrior Spectrum Logo">
+</a>
+</p>
+<br/>
+
 # Chainlink Hardhat Box
  Implementation of Chainlink VRF using the [Hardhat](https://hardhat.org/) development environment:
  - [Chainlink VRF](https://docs.chain.link/docs/chainlink-vrf)
