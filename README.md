@@ -1,5 +1,4 @@
-<br/>
-<p align="center">
+<br/> <p align="center">
 <a href="https://warriorspectrum.nft" target="_blank">
 <img src="https://github.com/TheWarriorSpectrum/tws-contracts/blob/ddee69ef9298551bb2b20b7cdfecc4593d7b1121/Logo.jpeg" width="225" alt="The Warrior Spectrum Logo">
 </a>
@@ -21,7 +20,7 @@ The aims of the game is to reach the ultimate prize which is a Level 6 warrior (
 ## Demo Video 
 
 ## Architecture Diagram
-![Architecture Diagram](https://github.com/TheWarriorSpectrum/tws-contracts/blob/develop-readme/Architecture_Diagram_V1.0.jpg)
+![Architecture Diagram](https://github.com/TheWarriorSpectrum/tws-contracts/blob/416045f43331ce721e9e7b0499c3384268409479/Architecture_Diagram_V1.1.jpg)
 
 # Build & Run platform
 This repository includes:
