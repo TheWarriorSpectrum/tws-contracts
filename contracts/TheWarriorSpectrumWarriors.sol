@@ -1,10 +1,3 @@
-/**
- * This is just a blueprint for a warrior. we don't use chainlink vrf * to mint new warriors for players. warriors when they are first 
- * minted are all the same with exception to the art work. where 
- * chainlink vrf comes in is during the battles, that is in 
- * randomising the dice rolls.
- */
-
 // SPDX-License-Identifier: GPL-3.0 
 pragma solidity ^0.6.6;
 
@@ -23,8 +16,6 @@ contract TheWarriorSpectrumWarriors is ERC721, VRFConsumerBase {
     address public VRFCoordinator;
     address public LinkToken;
 
-    // since players already exist and own warriors already 
-    // how do we need populate all this metadata? 
     struct Warrior {
         string playerProfile;
         string character;
@@ -36,15 +27,12 @@ contract TheWarriorSpectrumWarriors is ERC721, VRFConsumerBase {
     }
 
     Warrior[] public warriors;
-    
-    // to know which random number that was requested is for which warrior
-    // Keep track of what each player rolled in the battle
-    mapping(bytes32 => string) requestToPlayerName;
-    // For us to know who is the active player > change the battle screen ie. move their card to the front of the screen
-    mapping(bytes32 => address) activePlayerRollDice;
-    mapping(bytes32 => uint256) requestToTokenId;
 
-    constructor(address _VRFCoordinator, address _LinkToken, bytes32 _keyhash)
+    // mapping(bytes32 => string) requestToPlayerName;
+    // mapping(bytes32 => address) activePlayerRollDice;
+    // mapping(bytes32 => uint256) requestToTokenId;
+
+   constructor(address _VRFCoordinator, address _LinkToken, bytes32 _keyhash)
         public
         VRFConsumerBase(_VRFCoordinator, _LinkToken)
         ERC721("TheWarriorSpectrumWarriors", "TWS")
@@ -55,6 +43,11 @@ contract TheWarriorSpectrumWarriors is ERC721, VRFConsumerBase {
             fee             = 0.1 * 10**18; // 0.1 LINK
         }
 
+    /**
+    * This VRF functionality should be in its own separate file. 
+    *
+    *
+     */
     function requestNewLevel0Warrior (string memory playerName) 
         public 
         returns 
@@ -64,25 +57,42 @@ contract TheWarriorSpectrumWarriors is ERC721, VRFConsumerBase {
                 "Not enough LINK - fill contract with faucet"
         );
         bytes32 requestId = requestRandomness(keyHash, fee);
-        requestToPlayerName[requestId] = playerName;
-        activePlayerRollDice[requestId] = msg.sender;
+        // requestToPlayerName[requestId] = playerName;
+        // activePlayerRollDice[requestId] = msg.sender;
         return requestId;
     }
+
     /**
-    * @dev which character is this random number associated with
-    *
-    *
+    *   This VRF functionality should be in its own separate file. 
+    *   
+    *   Idea: make a single multiple request 
      */
     function fulfillRandomness(bytes32 requestId, uint256 randomNumber)
         internal
         override
     {
-        // uint256 newId = characters.length;
         uint8 experience = 0;
-        // check warrior level of player
-        // randomResult = (randomness % 10) + 1;       // level0
-        // randomResult = (randomness % 11) + 1        // level1
-        // randomResult = (randomness % 20) + 1        // level4
+    }
+
+    /**
+    * Renders the NFT on OpenSea
+    * 
+    *
+     */
+    function setTokenURI(uint8 tokenId, string memory _tokenURI) public {
+        require(
+            _isApprovedOrOwner(_msgSender(), tokenId),
+            "ERC721: transfer caller is not owner nor approved"
+        );
+        _setTokenURI(tokenId, _tokenURI);
+    }
+
+    /**
+    * Battle pairings or matching of players are done by VRF 
+    *
+    *
+     */
+    function matchPlayer() public returns(bool) {
     }
 
 }
