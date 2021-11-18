@@ -1,21 +1,21 @@
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-require("@nomiclabs/hardhat-waffle")
-require("@nomiclabs/hardhat-ethers")
-require("@nomiclabs/hardhat-truffle5")
-require("@nomiclabs/hardhat-etherscan")
-require("hardhat-deploy")
-require("hardhat-gas-reporter")
-require("solidity-coverage")
-require("./tasks/accounts")
-require("./tasks/balance")
-require("./tasks/withdraw-link")
-require("./tasks/block-number")
-require("./tasks/random-number-consumer")
-require("@appliedblockchain/chainlink-plugins-fund-link")
+require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-ethers");
+require("@nomiclabs/hardhat-truffle5");
+require("@nomiclabs/hardhat-etherscan");
+require("hardhat-deploy");
+require("hardhat-gas-reporter");
+require("solidity-coverage");
+require("./tasks/accounts");
+require("./tasks/balance");
+require("./tasks/withdraw-link");
+require("./tasks/block-number");
+require("./tasks/random-number-consumer");
+require("@appliedblockchain/chainlink-plugins-fund-link");
 
-require('dotenv').config()
+require("dotenv").config();
 
 const MAINNET_RPC_URL = process.env.MAINNET_RPC_URL || process.env.ALCHEMY_MAINNET_RPC_URL || "https://eth-mainnet.alchemyapi.io/v2/your-api-key"
 const RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL || "https://eth-rinkeby.alchemyapi.io/v2/your-api-key"
