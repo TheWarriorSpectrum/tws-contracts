@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.9;
 
 import "./Interfaces/IFactoryERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "openzeppelin-solidity/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 // Polygon Mainnet
@@ -13,7 +12,6 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 // Fee              0.0001 LINK
 contract TheWarriorFactory is FactoryERC721, Ownable {
     using Counters for Counters.Counter;
-    using Strings for string;
 
     mapping(uint256 => string) metadata;
 
@@ -67,20 +65,22 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
     }
 
     function tokenURI(uint256 _optionId) override external view returns (string memory) {
-        return string(abi.encodePacked(baseURI, Strings.toString(_optionId)));
+        return string(abi.encodePacked(baseURI, metadata[_optionId]));
     }
 
     function setBaseURI(string memory uri) public onlyOwner {
         baseURI = uri;
     }
 
-    function setMetadata(uint256 _optionId, string memory _cid) public onlyOwner {
+    function addMetadata(uint256 _optionId, string memory _cid) public onlyOwner {
         bytes memory currentMetadata = bytes(metadata[_optionId]);
-        require(currentMetadata.length > 0, "Warrior_Factory::Type not found");
+        require(currentMetadata.length == 0, "Warrior_Factory::Metadata already set.");
         metadata[_optionId] = _cid;
     }
 
-    function ownerOf(uint256 _tokenId) public view returns (address _owner) {
-        return owner();
+    function setMetadata(uint256 _optionId, string memory _cid) public onlyOwner {
+        bytes memory currentMetadata = bytes(metadata[_optionId]);
+        require(currentMetadata.length > 0, "Warrior_Factory::Type not found.");
+        metadata[_optionId] = _cid;
     }
 }
