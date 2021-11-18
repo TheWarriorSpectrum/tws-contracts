@@ -10,10 +10,25 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 // VRF Coordinator	0x3d2341ADb2D31f1c5530cDC622016af293177AE0
 // Key Hash	        0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da
 // Fee              0.0001 LINK
-
 contract TheWarriorSpectrumWarriorsV2 is ERC721, ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     using Strings for uint256;
+
+    struct Warrior {
+        string playerProfile;
+        string character;
+        uint8 level;
+        uint8 rollNumber;
+        uint8 wins;
+        uint8 losses;
+        uint8 expPoints;
+    }
+
+    Warrior[] public warriors;
+
+    // mapping(bytes32 => string) requestToPlayerName;
+    // mapping(bytes32 => address) activePlayerRollDice;
+    // mapping(bytes32 => uint256) requestToTokenId;
 
     mapping(uint256 => string) private _tokenURIs;
 
@@ -24,7 +39,6 @@ contract TheWarriorSpectrumWarriorsV2 is ERC721, ERC721Enumerable, Ownable {
     uint256 public constant PRICE_PER_TOKEN = 0.001 ether;
 
     constructor() ERC721("TheWarriorSpectrumWarriors", "TWS") {}
-
 
     function mint(address _to, string memory metadataURI) public onlyOwner {
         _tokenIdCounter.increment();
@@ -51,18 +65,13 @@ contract TheWarriorSpectrumWarriorsV2 is ERC721, ERC721Enumerable, Ownable {
         return _tokenURIs[tokenId];
     }
 
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId)
-        internal
-        override(ERC721, ERC721Enumerable)
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal
+    override(ERC721, ERC721Enumerable)
     {
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC721, ERC721Enumerable)
-        returns (bool)
+    function supportsInterface(bytes4 interfaceId) public view override(ERC721, ERC721Enumerable) returns (bool)
     {
         return super.supportsInterface(interfaceId);
     }
