@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0 
 pragma solidity ^0.6.12;
 
+
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 
@@ -9,6 +10,7 @@ import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 // VRF Coordinator	0x3d2341ADb2D31f1c5530cDC622016af293177AE0
 // Key Hash	        0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da
 // Fee              0.0001 LINK
+
 contract TheWarriorSpectrumWarriors is ERC721, VRFConsumerBase {
     bytes32 internal keyHash;
     uint256 internal fee;
