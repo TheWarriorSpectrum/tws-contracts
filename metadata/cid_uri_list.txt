@@ -1,0 +1,19 @@
+*** elementals
+fire
+ipfs://QmQ4RkAXwTk9xDZvdsWKjnsfAeLKKgjy6X7nh8uFQXhyea
+
+wind
+ipfs://QmRd4rx2qCGfGViQ1QEn6irTnafuPkZqimNsEQTPaRMZXW
+
+water
+ipfs://QmbjyVyg18YPGNzYCHMquePESEJUBHqqNqkJqRxcCTAWH2
+
+*** warriors
+gladiator
+ipfs://QmY2H7LYrQ6kmWRtQFYLMrAXToj1e1XU5wMSdNi3c6sb1z
+
+ninja
+ipfs://QmWuQ2c88SMzaTrYxSZXwYgQ4w8MWVwr1pAba7kUaHHMFz
+
+spartan
+ipfs://QmWUF76u726kkx3EehYS3HYfouhTLSbzu4MFBPHNjadi18
