@@ -25,7 +25,7 @@ const POLYGON_MAINNET_RPC_URL = process.env.POLYGON_MAINNET_RPC_URL || "https://
 const MNEMONIC = process.env.MNEMONIC || "your mnemonic"
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "Your etherscan API key"
 // optional
-const PRIVATE_KEY = process.env.PRIVATE_KEY || "your private key"
+const PRIVATE_KEY = process.env.PRIVATE_KEY || ""
 
 module.exports = {
     defaultNetwork: "hardhat",
@@ -99,6 +99,9 @@ module.exports = {
     },
     solidity: {
         compilers: [
+            {
+                version: "0.6.6"
+            },
             {
                 version: "0.6.12"
             },
