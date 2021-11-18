@@ -16,4 +16,6 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 /*
 contract TheWarriorSpectrumWarriorsV2 is ERC721Enumerable, VRFConsumerBase,  Ownable, ChainlinkClient  {
     using Counters for Counters.Counter;
+    using Chainlink for Chainlink.Request;
+
 }*/
