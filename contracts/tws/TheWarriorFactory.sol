@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.9;
 
+import "./TheWarriorSpectrumWarriorsV2.sol";
 import "./Interfaces/IFactoryERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -12,6 +13,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 // Fee              0.0001 LINK
 contract TheWarriorFactory is FactoryERC721, Ownable {
     using Counters for Counters.Counter;
+    TheWarriorSpectrumWarriorsV2 nftContract;
 
     mapping(uint256 => string) metadata;
 
@@ -40,6 +42,10 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
         metadata[GLADIATOR_OPTION] = 'QmY2H7LYrQ6kmWRtQFYLMrAXToj1e1XU5wMSdNi3c6sb1z';
     }
 
+    function setNftContract(address _nftContract) public  {
+        nftContract = TheWarriorSpectrumWarriorsV2(_nftContract);
+    }
+
     function name() override external pure returns (string memory) {
         return "The Warrior Factory";
     }
@@ -56,12 +62,14 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
         return NUM_OPTIONS;
     }
 
-    function mint(uint256 _optionId, address _toAddress) override public {
-        metadata[SPARTAN_OPTION] = 'QmWUF76u726kkx3EehYS3HYfouhTLSbzu4MFBPHNjadi18';
+    function mint(uint256 _optionId, address _to) override public {
+        bytes memory currentMetadata = bytes(metadata[_optionId]);
+        require(currentMetadata.length > 0, "Warrior_Factory::Type not found.");
+        nftContract.mint(_to, metadata[_optionId]);
     }
 
     function canMint(uint256 _optionId) override public view returns (bool) {
-      return true;
+        return true;
     }
 
     function tokenURI(uint256 _optionId) override external view returns (string memory) {

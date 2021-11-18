@@ -32,7 +32,7 @@ contract TheWarriorSpectrumWarriorsV2 is ERC721, ERC721Enumerable, Ownable {
 
     mapping(uint256 => string) private _tokenURIs;
 
-    string private _baseURIextended;
+    string private _baseURIextended = "ipfs://";
     Counters.Counter private _tokenIdCounter;
 
     uint256 public constant MAX_SUPPLY = 10000;
@@ -51,11 +51,7 @@ contract TheWarriorSpectrumWarriorsV2 is ERC721, ERC721Enumerable, Ownable {
         _baseURIextended = baseURI_;
     }
 
-    function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://";
-    }
-
-    function _baseURI() internal view virtual override returns (string memory) {
+    function _baseURI() internal view override returns (string memory) {
         return _baseURIextended;
     }
 
@@ -66,7 +62,7 @@ contract TheWarriorSpectrumWarriorsV2 is ERC721, ERC721Enumerable, Ownable {
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
-        return string(abi.encodePacked(baseURI, _tokenURIs[tokenId]));
+        return string(abi.encodePacked(_baseURI(), _tokenURIs[tokenId]));
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal
