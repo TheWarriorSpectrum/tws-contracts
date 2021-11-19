@@ -13,7 +13,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 // Fee              0.0001 LINK
 contract TheWarriorFactory is FactoryERC721, Ownable {
     using Counters for Counters.Counter;
-    TheWarriorSpectrumWarriorsV2 nftContract;
+    TheWarriorSpectrumWarriors nftContract;
 
     mapping(uint256 => string) metadata;
 
@@ -43,7 +43,7 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
     }
 
     function setNftContract(address _nftContract) public  {
-        nftContract = TheWarriorSpectrumWarriorsV2(_nftContract);
+        nftContract = TheWarriorSpectrumWarriors(_nftContract);
     }
 
     function name() override external pure returns (string memory) {
