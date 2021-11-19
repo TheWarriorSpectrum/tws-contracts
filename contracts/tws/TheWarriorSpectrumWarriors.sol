@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 // VRF Coordinator	0x3d2341ADb2D31f1c5530cDC622016af293177AE0
 // Key Hash	        0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da
 // Fee              0.0001 LINK
-contract TheWarriorSpectrumWarriorsV2 is ERC721, ERC721Enumerable, Ownable {
+contract TheWarriorSpectrumWarriors is ERC721, ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     using Strings for uint256;
 

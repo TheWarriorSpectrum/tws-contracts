@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.9;
 
-import "./TheWarriorSpectrumWarriorsV2.sol";
+import "./TheWarriorSpectrumWarriors.sol";
 import "./Interfaces/IFactoryERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";

@@ -9,7 +9,7 @@ describe("Warrior Factory tests", async () => {
   const OPTION_GLADIATOR = 2;
 
   beforeEach(async () => {
-    const NFT = await ethers.getContractFactory("TheWarriorSpectrumWarriorsV2");
+    const NFT = await ethers.getContractFactory("TheWarriorSpectrumWarriors");
     const FACTORY = await ethers.getContractFactory("TheWarriorFactory");
     [owner, addr1, addr2, addr3, ...addrs] = await ethers.getSigners();
     warriorFactory = await FACTORY.deploy();
