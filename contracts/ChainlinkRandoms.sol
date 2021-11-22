@@ -19,6 +19,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 // Fee	            0.1 LINK
 
 contract TheWarriorSpectrumWarriors is ERC721, VRFConsumerBase, Ownable {
+<<<<<<< HEAD
     uint256 private constant ROLL_IN_PROGRESS = 42;
 
     using SafeMath for uint256;
@@ -26,6 +27,13 @@ contract TheWarriorSpectrumWarriors is ERC721, VRFConsumerBase, Ownable {
 
     bytes32 private s_keyHash;
     uint256 private s_fee;
+=======
+    using SafeMath for uint256;
+    using Strings for string;
+
+    bytes32 internal keyHash;
+    uint256 internal fee;
+>>>>>>> 4587c524885396850b9b099860b70bddcf996c82
     uint256 public randomResult;
     address public VRFCoordinator;
     address public LinkToken;
@@ -37,6 +45,7 @@ contract TheWarriorSpectrumWarriors is ERC721, VRFConsumerBase, Ownable {
         uint8 losses;
     }
 
+<<<<<<< HEAD
     // keep track of who to assign the result to when it comes back
     mapping(bytes32 => address) private s_rollers;     
     // store results of dice roll
@@ -46,12 +55,19 @@ contract TheWarriorSpectrumWarriors is ERC721, VRFConsumerBase, Ownable {
     event DiceLanded(bytes32 indexed requestId, uint256 indexed result);
 
     constructor(address _VRFCoordinator, address _LinkToken, bytes32 _keyhash, uint256 fee)
+=======
+    // Having multiple VRF requests in flight - one for each player on their turn 
+    mapping(bytes32 => address) public requestIdToAddress;
+
+    constructor(address _VRFCoordinator, address _LinkToken, bytes32 _keyhash)
+>>>>>>> 4587c524885396850b9b099860b70bddcf996c82
         public
         VRFConsumerBase(_VRFCoordinator, _LinkToken)
         ERC721("TheWarriorSpectrum", "TWS")
         {
             VRFCoordinator  = _VRFCoordinator;
             LinkToken       = _LinkToken;
+<<<<<<< HEAD
             s_keyHash       = _keyhash;
             s_fee           = fee;                  // pass in deploy script => 0.1 * 10**18
         }
@@ -87,17 +103,50 @@ contract TheWarriorSpectrumWarriors is ERC721, VRFConsumerBase, Ownable {
     * @param randomNumber the random number returned from a 10-sided dice
     *
     */
+=======
+            keyHash         = _keyhash;
+            fee             = 0.1 * 10**18; // 0.1 LINK
+        }
+
+    /**
+    * When the user clicks on roll dice, it uses Chainlink VRF to get * a random number 
+    * 
+    * @return returns random number between 1-x, where x is the size of the player's dice
+    *
+    * */
+    function requestRandomNumber() 
+        public 
+        returns (bytes32) {
+        require(
+            LINK.balanceOf(address(this)) >= fee,
+            "Not enough LINK - fill contract with faucet"
+        );
+        bytes32 requestId = requestRandomness(keyHash, fee);
+        requestIdToAddress[requestId] = msg.sender;
+        return requestId;
+    }
+
+>>>>>>> 4587c524885396850b9b099860b70bddcf996c82
     function fulfillRandomness(bytes32 requestId, uint256 randomNumber) 
         internal 
         override 
     {
         // player level 0 <> 10-sided dice % 10
+<<<<<<< HEAD
         uint256 d10Value = (randomNumber % 10) + 1;
         s_results[s_rollers[requestId]] = d10Value;
         emit DiceLanded(requestId, d10Value);
     }
 
     
+=======
+        uint256 diceRoll1 = (randomNumber % 10) + 1;
+        uint256 diceRoll2 = (randomNumber % 10) + 2; 
+        uint256 diceRoll3 = (randomNumber % 10) + 3;  
+    
+        address requestAddress = requestIdToAddress[requestId];
+    }
+>>>>>>> 4587c524885396850b9b099860b70bddcf996c82
 }
 
 

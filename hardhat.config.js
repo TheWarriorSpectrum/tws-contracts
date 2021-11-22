@@ -68,11 +68,19 @@ module.exports = {
         //     },
         //     saveDeployments: true,
         // },
+<<<<<<< HEAD
         mumbai: {
             url: MUMBAI_RPC_URL,
             accounts: [PRIVATE_KEY],
             saveDeployments: true,
         },
+=======
+        // mumbai: {
+        //     url: MUMBAI_RPC_URL,
+        //     accounts: [PRIVATE_KEY],
+        //     saveDeployments: true,
+        // },
+>>>>>>> 4587c524885396850b9b099860b70bddcf996c82
         // polygon: {
         //     url: POLYGON_MAINNET_RPC_URL,
         //     accounts: [PRIVATE_KEY],
