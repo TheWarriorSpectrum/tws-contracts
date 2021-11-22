@@ -20,8 +20,7 @@ The aims of the game is to reach the ultimate prize which is a Level 6 warrior (
 ## Demo Video 
 
 ## Architecture Diagram
-![Architecture Diagram](https://github.com/TheWarriorSpectrum/tws-contracts/blob/416045f43331ce721e9e7b0499c3384268409479/Architecture_Diagram_V1.1.jpg)
-https://github.com/TheWarriorSpectrum/tws-contracts/blob/416045f43331ce721e9e7b0499c3384268409479/Architecture_Diagram_V1.1.jpg
+![Architecture Diagram](https://github.com/TheWarriorSpectrum/tws-contracts/blob/3a7b22dd92ecee6f16ce9f0a16a17076d12404e4/diagrams/Architecture_Diagram_V1.2.jpg)
 # Build & Run platform
 This repository includes:
 
