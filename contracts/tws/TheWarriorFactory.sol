@@ -14,6 +14,8 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 // Fee              0.0001 LINK
 contract TheWarriorFactory is FactoryERC721, Ownable {
     using Counters for Counters.Counter;
+
+    //Ideally those would be proxies
     TheWarriorSpectrumWarriors warriorContract;
     TheWarriorSpectrumElemental elementalContract;
 
