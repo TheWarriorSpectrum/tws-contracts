@@ -16,6 +16,7 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
     TheWarriorSpectrumWarriors nftContract;
 
     mapping(uint256 => string) metadata;
+    mapping(uint256 => string) metadataElemental;
 
     event Transfer(
         address indexed from,
@@ -29,10 +30,21 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
         uint256 date
     );
 
-    uint256 NUM_OPTIONS = 3;
+    uint256 NUM_OPTIONS = 8;
     uint256 NINJA_OPTION = 0;
     uint256 SPARTAN_OPTION = 1;
     uint256 GLADIATOR_OPTION = 2;
+    uint256 CELTIC_OPTION = 3;
+    uint256 TEMPLAR_OPTION = 4;
+    uint256 IMMORTAL_OPTION = 5;
+    uint256 ASSASSIN_OPTION = 6;
+    uint256 MUAYTHAI_OPTION = 7;
+
+    //elementals
+    uint256 E_EARHT_OPTION = 0;
+    uint256 E_WIND_OPTION = 1;
+    uint256 E_FIRE_OPTION = 2;
+    uint256 E_WATER_OPTION = 3;
 
     string public baseURI = "https://ipfs.io/ipfs/";
 
@@ -40,6 +52,16 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
         metadata[NINJA_OPTION] = 'QmWuQ2c88SMzaTrYxSZXwYgQ4w8MWVwr1pAba7kUaHHMFz';
         metadata[SPARTAN_OPTION] = 'QmWUF76u726kkx3EehYS3HYfouhTLSbzu4MFBPHNjadi18';
         metadata[GLADIATOR_OPTION] = 'QmY2H7LYrQ6kmWRtQFYLMrAXToj1e1XU5wMSdNi3c6sb1z';
+        metadata[CELTIC_OPTION] = 'QmQeeh6uep7qwQM8ajjaCMnuuwH8mESTcQBpXzeovDvSDA';
+        metadata[TEMPLAR_OPTION] = 'QmZpqw24PKGPxQrPcamFmvr776tjUdh2K4NSb4T3baJQg9';
+        metadata[IMMORTAL_OPTION] = 'QmQtyoq7RGzbTgqV79k64rjNCMj8owR7MVygKkYDTMAUiT';
+        metadata[ASSASSIN_OPTION] = 'Qma8TXkT2f3xrCNuAU3URfSLT8dVjjM7QL5PnB31LKh4uy';
+        metadata[MUAYTHAI_OPTION] = 'QmVFbaap3zyD8N3hd5VreH32vDJqmKhGc5Ycwu4n6ED5HE';
+
+        metadataElemental[E_EARHT_OPTION] = 'QmbvwfWAnRDRz16YLQeP6NhyytEbaL2S7KfGpgcGmm7tEd';
+        metadataElemental[E_WIND_OPTION] = 'QmQ4RkAXwTk9xDZvdsWKjnsfAeLKKgjy6X7nh8uFQXhyea';
+        metadataElemental[E_FIRE_OPTION] = 'QmRd4rx2qCGfGViQ1QEn6irTnafuPkZqimNsEQTPaRMZXW';
+        metadataElemental[E_WATER_OPTION] = 'QmbjyVyg18YPGNzYCHMquePESEJUBHqqNqkJqRxcCTAWH2';
     }
 
     function setNftContract(address _nftContract) public  {
@@ -66,6 +88,11 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
         bytes memory currentMetadata = bytes(metadata[_optionId]);
         require(currentMetadata.length > 0, "Warrior_Factory::Type not found.");
         nftContract.mint(_to, metadata[_optionId]);
+    }
+
+    //maybe we could mint the elemetals from here idk if that's the best tho onlyMinter
+    function mintElemental(uint256 _optionId, address _to) override onlyOwner {
+
     }
 
     function canMint(uint256 _optionId) override public view returns (bool) {
