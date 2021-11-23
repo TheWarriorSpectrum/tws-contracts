@@ -2,6 +2,7 @@
 pragma solidity ^0.8.9;
 
 import "./TheWarriorSpectrumWarriors.sol";
+import "./TheWarriorSpectrumElemental.sol";
 import "./Interfaces/IFactoryERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -13,7 +14,8 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 // Fee              0.0001 LINK
 contract TheWarriorFactory is FactoryERC721, Ownable {
     using Counters for Counters.Counter;
-    TheWarriorSpectrumWarriors nftContract;
+    TheWarriorSpectrumWarriors warriorContract;
+    TheWarriorSpectrumElemental elementalContract;
 
     mapping(uint256 => string) metadata;
     mapping(uint256 => string) metadataElemental;
@@ -64,8 +66,9 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
         metadataElemental[E_WATER_OPTION] = 'QmbjyVyg18YPGNzYCHMquePESEJUBHqqNqkJqRxcCTAWH2';
     }
 
-    function setNftContract(address _nftContract) public  {
-        nftContract = TheWarriorSpectrumWarriors(_nftContract);
+    function setupContracts(address _warriorContract, address _elementalContract) public  {
+        warriorContract = TheWarriorSpectrumWarriors(_nftContract);
+        elementalContract = TheWarriorSpectrumElemental(_elementalContract);
     }
 
     function name() override external pure returns (string memory) {
@@ -87,7 +90,7 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
     function mint(uint256 _optionId, address _to) override public {
         bytes memory currentMetadata = bytes(metadata[_optionId]);
         require(currentMetadata.length > 0, "Warrior_Factory::Type not found.");
-        nftContract.mint(_to, metadata[_optionId]);
+        warriorContract.mint(_to, metadata[_optionId]);
     }
 
     //maybe we could mint the elemetals from here idk if that's the best tho onlyMinter
