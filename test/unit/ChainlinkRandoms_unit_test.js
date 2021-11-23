@@ -7,9 +7,9 @@ chai.use(require('chai-bn')(BN))
 
 
 skip.if(!developmentChains.includes(network.name)).
-  describe('RandomNumberConsumer Unit Tests', async function () {
+  describe('ChainlinkRandoms Unit Tests', async function () {
 
-    let randomNumberConsumer
+    let ChainlinkRandoms
 
     beforeEach(async () => {
       const chainId = await getChainId()
@@ -21,16 +21,16 @@ skip.if(!developmentChains.includes(network.name)).
       linkTokenAddress = linkToken.address
       additionalMessage = " --linkaddress " + linkTokenAddress
 
-      const RandomNumberConsumer = await deployments.get('RandomNumberConsumer')
-      randomNumberConsumer = await ethers.getContractAt('RandomNumberConsumer', RandomNumberConsumer.address)
+      const ChainlinkRandoms = await deployments.get('ChainlinkRandoms')
+      ChainlinkRandoms = await ethers.getContractAt('ChainlinkRandoms', ChainlinkRandoms.address)
 
-      if (await autoFundCheck(randomNumberConsumer.address, networkName, linkTokenAddress, additionalMessage)) {
-        await hre.run("fund-link", { contract: randomNumberConsumer.address, linkaddress: linkTokenAddress })
+      if (await autoFundCheck(ChainlinkRandoms.address, networkName, linkTokenAddress, additionalMessage)) {
+        await hre.run("fund-link", { contract: ChainlinkRandoms.address, linkaddress: linkTokenAddress })
       }
     })
 
     it('Should successfully make an external random number request', async () => {
-      const transaction = await randomNumberConsumer.getRandomNumber()
+      const transaction = await ChainlinkRandoms.requestRandomNumber()
       const tx_receipt = await transaction.wait(1)
       const requestId = tx_receipt.events[2].topics[1]
 
