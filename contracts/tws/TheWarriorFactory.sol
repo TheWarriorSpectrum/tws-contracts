@@ -62,14 +62,14 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
         metadata[ASSASSIN_OPTION] = 'Qma8TXkT2f3xrCNuAU3URfSLT8dVjjM7QL5PnB31LKh4uy';
         metadata[MUAYTHAI_OPTION] = 'QmVFbaap3zyD8N3hd5VreH32vDJqmKhGc5Ycwu4n6ED5HE';
 
-        metadataElemental[E_EARHT_OPTION] = 'QmbvwfWAnRDRz16YLQeP6NhyytEbaL2S7KfGpgcGmm7tEd';
+        metadataElemental[E_EARTH_OPTION] = 'QmbvwfWAnRDRz16YLQeP6NhyytEbaL2S7KfGpgcGmm7tEd';
         metadataElemental[E_WIND_OPTION] = 'QmQ4RkAXwTk9xDZvdsWKjnsfAeLKKgjy6X7nh8uFQXhyea';
         metadataElemental[E_FIRE_OPTION] = 'QmRd4rx2qCGfGViQ1QEn6irTnafuPkZqimNsEQTPaRMZXW';
         metadataElemental[E_WATER_OPTION] = 'QmbjyVyg18YPGNzYCHMquePESEJUBHqqNqkJqRxcCTAWH2';
     }
 
     function setupContracts(address _warriorContract, address _elementalContract) public  {
-        warriorContract = TheWarriorSpectrumWarriors(_nftContract);
+        warriorContract = TheWarriorSpectrumWarriors(_warriorContract);
         elementalContract = TheWarriorSpectrumElemental(_elementalContract);
     }
 
@@ -96,9 +96,10 @@ contract TheWarriorFactory is FactoryERC721, Ownable {
     }
 
     //maybe we could mint the elemetals from here idk if that's the best tho onlyMinter
+    /*
     function mintElemental(uint256 _optionId, address _to) override onlyOwner {
 
-    }
+    }*/
 
     function canMint(uint256 _optionId) override public view returns (bool) {
         return true;

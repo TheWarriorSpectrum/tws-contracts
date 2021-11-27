@@ -15,16 +15,15 @@ contract TheWarriorSpectrumWarriors is ERC721, ERC721Enumerable, Ownable {
     using Strings for uint256;
 
     struct Warrior {
-        string playerProfile;
-        string character;
         uint8 level;
         uint8 rollNumber;
         uint8 wins;
         uint8 losses;
         uint8 expPoints;
+        address owner;
     }
 
-    Warrior[] public warriors;
+    mapping(uint256 => Warrior) warriorInfo;
 
     // mapping(bytes32 => string) requestToPlayerName;
     // mapping(bytes32 => address) activePlayerRollDice;
@@ -38,14 +37,20 @@ contract TheWarriorSpectrumWarriors is ERC721, ERC721Enumerable, Ownable {
     uint256 public constant MAX_SUPPLY = 10000;
     uint256 public constant PRICE_PER_TOKEN = 0.001 ether;
 
-    constructor() ERC721("TheWarriorSpectrumWarriors", "TWS") {}
+    constructor() ERC721("TheWarriorSpectrumWarriors", "TWS") {
+
+    }
 
     function mint(address _to, string memory metadataURI) public onlyOwner {
         _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter.current();
         _mint(_to, tokenId);
         _setTokenURI(tokenId, metadataURI);
+        Warrior storage warrior = warriorInfo[tokenId];
+        warrior.owner = _to;
+        warriorInfo[tokenId] = warrior;
     }
+
 
     function setBaseURI(string memory baseURI_) external onlyOwner() {
         _baseURIextended = baseURI_;
@@ -53,6 +58,18 @@ contract TheWarriorSpectrumWarriors is ERC721, ERC721Enumerable, Ownable {
 
     function _baseURI() internal view override returns (string memory) {
         return _baseURIextended;
+    }
+
+    function getWarriorInfo(uint256 tokenId) public view returns (uint8, uint8, uint8, uint8, uint8, address) {
+        Warrior memory warrior = warriorInfo[tokenId];
+        return (
+        warrior.level,
+        warrior.rollNumber,
+        warrior.wins,
+        warrior.losses,
+        warrior.expPoints,
+        warrior.owner
+        );
     }
 
     function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {

@@ -2,19 +2,23 @@ const { expect } = require("chai");
 
 describe("Warrior Factory tests", async () => {
   // eslint-disable-next-line no-unused-vars
-  let warriorFactory, nft, owner, addr1, addr2;
+  let warriorFactory, warrior, elemental, owner, addr1, addr2;
 
   const OPTION_NINJA = 0;
   const OPTION_SPARTAN = 1;
   const OPTION_GLADIATOR = 2;
 
   beforeEach(async () => {
-    const NFT = await ethers.getContractFactory("TheWarriorSpectrumWarriors");
-    const FACTORY = await ethers.getContractFactory("TheWarriorFactory");
+    const warriorContract = await ethers.getContractFactory("TheWarriorSpectrumWarriors");
+    const elementalContract = await ethers.getContractFactory("TheWarriorSpectrumElemental");
+    const factory = await ethers.getContractFactory("TheWarriorFactory");
     [owner, addr1, addr2, addr3, ...addrs] = await ethers.getSigners();
-    warriorFactory = await FACTORY.deploy();
-    nft = await NFT.deploy();
-    await nft.transferOwnership(warriorFactory.address);
+    warriorFactory = await factory.deploy();
+    warrior = await warriorContract.deploy();
+    elemental = await elementalContract.deploy();
+    await warrior.transferOwnership(warriorFactory.address);
+    await elemental.transferOwnership(warriorFactory.address);
+    await warriorFactory.setupContracts(warrior.address, elemental.address);
   });
 
   it("Gets warrior metadata", async () => {
@@ -34,14 +38,13 @@ describe("Warrior Factory tests", async () => {
   });
 
   it("Mints new warrior", async () => {
-    await warriorFactory.setNftContract(nft.address);
     await warriorFactory.mint(OPTION_NINJA, owner.address);
 
-    const balance = (await nft.balanceOf(owner.address)).toString();
+    const balance = (await warrior.balanceOf(owner.address)).toString();
 
     expect(balance).to.be.equal("1");
 
-    const URI = await nft.tokenURI(1);
+    const URI = await warrior.tokenURI(1);
 
     expect(URI).to.be.equal(
       "ipfs://QmWuQ2c88SMzaTrYxSZXwYgQ4w8MWVwr1pAba7kUaHHMFz"
