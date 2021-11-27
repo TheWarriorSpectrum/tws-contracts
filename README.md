@@ -1,13 +1,15 @@
 <br/>
 <p align="center">
-<a href="https://warriorspectrum.nft" target="_blank">
-<img src="https://github.com/TheWarriorSpectrum/tws-contracts/blob/ddee69ef9298551bb2b20b7cdfecc4593d7b1121/Logo.jpeg" width="225" alt="The Warrior Spectrum Logo">
+<a href="https://chain.link" target="_blank">
+<img src="https://raw.githubusercontent.com/smartcontractkit/chainlink-hardhat-box/master/box-img-lg.png" width="225" alt="Chainlink Hardhat logo">
 </a>
 </p>
 <br/>
 
 # Chainlink Hardhat Box
- Implementation of Chainlink VRF using the [Hardhat](https://hardhat.org/) development environment:
+ Implementation of the following 3 Chainlink features using the [Hardhat](https://hardhat.org/) development environment:
+ - [Request & Receive data](https://docs.chain.link/docs/request-and-receive-data)
+ - [Chainlink Price Feeds](https://docs.chain.link/docs/using-chainlink-reference-contracts)
  - [Chainlink VRF](https://docs.chain.link/docs/chainlink-vrf)
 
  ## Requirements
@@ -17,7 +19,7 @@
 ## Installation
 
 ### Kovan Ethereum Testnet
-Set your `KOVAN_RPC_URL` [environment variable.](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html). You can get one for free at [Infura's site.](https://infura.io/) You'll also need to set the variable `PRIVATE_KEY`, which is your private key from your wallet, ie MetaMask. This is needed for deploying contracts to public networks. You can optionally set your `MNEMONIC` environment variable instead with some changes to the `hardhat.config.js`. You can obtain testnet ETH and LINK via the [Chainlink Kovan Faucet](https://faucets.chain.link/)
+Set your `KOVAN_RPC_URL` [environment variable.](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html). You can get one for free at [Infura's site.](https://infura.io/) You'll also need to set the variable `PRIVATE_KEY`, which is your private key from your wallet, ie MetaMask. This is needed for deploying contracts to public networks. You can optionally set your `MNEMONIC` environment variable instead with some changes to the `hardhat.config.js`.
 
 ### Matic Mumbai Testnet
 Set your `MUMBAI_RPC_URL` [environment variable](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html). You can get one from the [Matic docs](https://docs.matic.network/docs/develop/network-details/network). You'll also need to set the variable `PRIVATE_KEY` which is your private key from your wallet, ie MetaMask. This is needed for deploying contracts to public networks. You can obtain testnet MATIC and LINK via the [MATIC Faucet](https://faucet.matic.network/)
@@ -37,7 +39,14 @@ MAINNET_RPC_URL="https://eth-mainnet.alchemyapi.io/v2/your-api-key"
 MUMBAI_RPC_URL='https://rpc-mumbai.maticvigil.com'
 POLYGON_MAINNET_RPC_URL='https://rpc-mainnet.maticvigil.com'
 ```
-
+`bash` example
+```
+export KOVAN_RPC_URL='www.infura.io/asdfadsfafdadf'
+export PRIVATE_KEY='abcdef'
+export MAINNET_RPC_URL='https://eth-mainnet.alchemyapi.io/v2/your-api-key'
+export MUMBAI_RPC_URL='https://rpc-mumbai.maticvigil.com'
+export POLYGON_MAINNET_RPC_URL='https://rpc-mainnet.maticvigil.com'
+```
 
 If you plan on deploying to a local [Hardhat network](https://hardhat.org/hardhat-network/) that's a fork of the Ethereum mainnet instead of a public test network like Kovan, you'll also need to set your `MAINNET_RPC_URL` [environment variable.](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html) and uncomment the `forking` section in `hardhat.config.js`. You can get one for free at [Alchemy's site.](https://alchemyapi.io/).
 
@@ -113,6 +122,33 @@ yarn test-integration
 
 The deployment output will give you the contract addresses as they are deployed. You can then use these contract addresses in conjunction with Hardhat tasks to perform operations on each contract
 
+
+### Chainlink Price Feeds
+The Price Feeds consumer contract has one task, to read the latest price of a specified price feed contract
+
+```bash
+npx hardhat read-price-feed --contract insert-contract-address-here --network network
+```
+
+### Request & Receive Data
+The APIConsumer contract has two tasks, one to request external data based on a set of parameters, and one to check to see what the result of the data request is. This contract needs to be funded with link first:
+
+```bash
+npx hardhat fund-link --contract insert-contract-address-here --network network
+```
+
+Once it's funded, you can request external data by passing in a number of parameters to the request-data task. The contract parameter is mandatory, the rest are optional
+
+```bash
+npx hardhat request-data --contract insert-contract-address-here --network network
+```
+
+Once you have successfully made a request for external data, you can see the result via the read-data task
+```bash
+npx hardhat read-data --contract insert-contract-address-here --network network
+```
+
+
 ### VRF Get a random number
 The VRFConsumer contract has two tasks, one to request a random number, and one to read the result of the random number request. This contract needs to be funded with link first:
 
@@ -130,6 +166,14 @@ Once you have successfully made a request for a random number, you can see the r
 
 ```bash
 npx hardhat read-random-number --contract insert-contract-address-here --network network
+```
+
+### Keepers
+The KeepersCounter contract is a simple Chainlink Keepers enabled contract that simply maintains a counter variable that gets incremented each time the performUpkeep task is performed by a Chainlink Keeper. Once the contract is deployed, you should head to [https://keepers.chain.link/](https://keepers.chain.link/) to register it for upkeeps, then you can use the task below to view the counter variable that gets incremeneted by Chainlink Keepers
+
+
+```bash
+npx hardhat read-keepers-counter --contract insert-contract-address-here --network network
 ```
 
 ## Verify on Etherscan
