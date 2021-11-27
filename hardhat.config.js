@@ -1,21 +1,21 @@
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-require("@nomiclabs/hardhat-waffle");
-require("@nomiclabs/hardhat-ethers");
-require("@nomiclabs/hardhat-truffle5");
-require("@nomiclabs/hardhat-etherscan");
-require("hardhat-deploy");
-require("hardhat-gas-reporter");
-require("solidity-coverage");
-require("./tasks/accounts");
-require("./tasks/balance");
-require("./tasks/withdraw-link");
-require("./tasks/block-number");
-require("./tasks/random-number-consumer");
-require("@appliedblockchain/chainlink-plugins-fund-link");
+require("@nomiclabs/hardhat-waffle")
+require("@nomiclabs/hardhat-ethers")
+require("@nomiclabs/hardhat-truffle5")
+require("@nomiclabs/hardhat-etherscan")
+require("hardhat-deploy")
+require("hardhat-gas-reporter")
+require("solidity-coverage")
+require("./tasks/accounts")
+require("./tasks/balance")
+require("./tasks/withdraw-link")
+require("./tasks/block-number")
+require("./tasks/random-number-consumer")
+require("@appliedblockchain/chainlink-plugins-fund-link")
 
-require("dotenv").config();
+require('dotenv').config()
 
 const MAINNET_RPC_URL = process.env.MAINNET_RPC_URL || process.env.ALCHEMY_MAINNET_RPC_URL || "https://eth-mainnet.alchemyapi.io/v2/your-api-key"
 const RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL || "https://eth-rinkeby.alchemyapi.io/v2/your-api-key"
@@ -25,7 +25,7 @@ const POLYGON_MAINNET_RPC_URL = process.env.POLYGON_MAINNET_RPC_URL || "https://
 const MNEMONIC = process.env.MNEMONIC || "your mnemonic"
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "Your etherscan API key"
 // optional
-const PRIVATE_KEY = process.env.PRIVATE_KEY || ""
+const PRIVATE_KEY = process.env.PRIVATE_KEY || "your private key"
 
 module.exports = {
     defaultNetwork: "hardhat",
@@ -68,11 +68,19 @@ module.exports = {
         //     },
         //     saveDeployments: true,
         // },
+<<<<<<< HEAD
+        mumbai: {
+            url: MUMBAI_RPC_URL,
+            accounts: [PRIVATE_KEY],
+            saveDeployments: true,
+        },
+=======
         // mumbai: {
         //     url: MUMBAI_RPC_URL,
         //     accounts: [PRIVATE_KEY],
         //     saveDeployments: true,
         // },
+>>>>>>> 4587c524885396850b9b099860b70bddcf996c82
         // polygon: {
         //     url: POLYGON_MAINNET_RPC_URL,
         //     accounts: [PRIVATE_KEY],
@@ -100,19 +108,16 @@ module.exports = {
     solidity: {
         compilers: [
             {
-                version: "0.4.24"
-            },
-            {
-                version: "0.6.6"
-            },
-            {
-                version: "0.6.12"
+                version: "0.7.6"
             },
             {
                 version: "0.8.7"
             },
             {
-                version: "0.8.9"
+                version: "0.6.6"
+            },
+            {
+                version: "0.4.24"
             }
         ]
     },
